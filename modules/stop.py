@@ -24,7 +24,7 @@ class Stop():
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--window-size=1920x1080")
 
-        chrome_driver = os.getcwd() + "\\..\\assets\\chromedriver.exe"
+        chrome_driver = os.getcwd() + "\\assets\\chromedriver.exe"
 
         return webdriver.Chrome(chrome_options=chrome_options,
                                 executable_path=chrome_driver)
@@ -48,6 +48,7 @@ class Stop():
                 next_dep = row.find(class_="timeFormatted").string
                 self.next = self.parse_next(next_dep)
                 return next_dep
+        self.get_next_departure()
 
     def parse_next(self, next_dep):
         if ":" in next_dep:
