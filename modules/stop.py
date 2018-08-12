@@ -36,7 +36,7 @@ class Stop():
 
         for row in table.find_all("tr"):
             correct_line = row.find(class_="line").string == self.line
-            correct_dest = row.find(class_="destination") == self.dest
+            correct_dest = row.find(class_="destination").string == self.dest
 
             if correct_line and (correct_dest or self.dest == ""):
                 return row.find(class_="timeFormatted").string
