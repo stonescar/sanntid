@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -12,6 +15,9 @@ class Stop():
         self.dest = destination
 
         self.browser = self.setup_driver()
+
+        self.next = None
+        self.formatted = self.get_next_departure()
 
     def setup_driver(self):
         chrome_options = Options()
@@ -39,4 +45,14 @@ class Stop():
             correct_dest = row.find(class_="destination").string == self.dest
 
             if correct_line and (correct_dest or self.dest == ""):
-                return row.find(class_="timeFormatted").string
+                next_dep = row.find(class_="timeFormatted").string
+                self.next = self.parse_next(next_dep)
+                return next_dep
+
+    def parse_next(self, next_dep):
+        if ":" in next_dep:
+            return 61
+        elif u"nå" in next_dep:
+            return 0
+        else:
+            return [int(s) for s in next_dep.split() if s.isdigit()][0]
