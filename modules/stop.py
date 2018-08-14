@@ -24,7 +24,10 @@ class Stop():
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--window-size=1920x1080")
 
-        chrome_driver = os.getcwd() + "\\assets\\chromedriver.exe"
+        driver_path = "\\assets\\chromedriver"
+        driver_path += ".exe" if os.name == "nt" else ""
+
+        chrome_driver = os.getcwd() + driver_path
 
         return webdriver.Chrome(chrome_options=chrome_options,
                                 executable_path=chrome_driver)
