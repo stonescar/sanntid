@@ -17,3 +17,12 @@ class Realtime():
                               line["line"],
                               line["destination"] or ""))
         return stops
+
+    def get_output(self):
+        output = []
+        for line in self.lines:
+            output.append(
+                line.line +
+                " " * (16 - len(line.line) - len(line.formatted)) +
+                line.formatted)
+        return output
